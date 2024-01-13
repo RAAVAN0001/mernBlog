@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
 }
 
 body {
@@ -21,12 +21,18 @@ body {
 
 .img1fromhome {
     animation: imgUp 2s infinite alternate linear;
-    filter: drop-shadow( 20px 20px 10px  rgb(15, 15, 15));
-  
+    filter: drop-shadow(20px 20px 10px rgb(15, 15, 15));
+
 }
 
 @keyframes imgUp {
     to {
         transform: translateY(-20px);
     }
+}
+
+.helo {
+    height: 200px;
+    width: 650px;
+    margin: -70px;
 }

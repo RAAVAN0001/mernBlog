@@ -1,11 +1,13 @@
 import React from "react";
-import Login from "./components/Login";
+// import Login from "./components/Login";
 import Registration from "./components/Registration";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Typography, Button, Box } from "@mui/material";
 import Home from "./components/Home";
 import Blogs from "./components/Blogs";
 import CreateBlog from "./components/CreateBlog";
+import HomePage from "./Pages/HomePage";
+import Login from './components/LoogininChakra'
 
 function App() {
   return (
@@ -21,7 +23,7 @@ function App() {
         alignItems={"center"}
       >
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/blogs" element={<Blogs />} />
