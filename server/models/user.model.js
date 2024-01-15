@@ -30,7 +30,7 @@ const userSchema = new Schema({
     },
     bio: {
         type: String,
-        maxlenght: 300
+        maxlength: 300
     },
     blogs: {
         type: Schema.Types.ObjectId,

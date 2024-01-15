@@ -14,7 +14,7 @@ router.post('/registration', async (req, res) => {
             res.status(409).json({ message: `${username} already exists` });
         } else {
             const existingEmailUser = await User.findOne({ email });
-            
+
             if (existingEmailUser) {
                 res.status(409).json({ message: `${email} already exists` });
             } else {
@@ -36,13 +36,19 @@ router.post('/registration', async (req, res) => {
 
 
 router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+    const { usernameOrEmail, password } = req.body;
 
     try {
-        const existingUser = await User.findOne({ username });
+        // Check if the input is an email address
+        const isEmail = /\S+@\S+\.\S+/.test(usernameOrEmail);
+
+        // Define the query based on the type of input
+        const query = isEmail ? { email: usernameOrEmail } : { username: usernameOrEmail };
+
+        const existingUser = await User.findOne(query);
 
         if (!existingUser) {
-            return res.status(401).json({ message: `${username} does not exist` });
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
 
         const passwordMatch = await bcrypt.compare(password, existingUser.password);
@@ -51,13 +57,14 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Incorrect password' });
         }
 
-        res.status(200).json({ message: `${username} logged in successfully` });
+        res.status(200).json({ message: `${existingUser.username} logged in successfully` });
 
     } catch (error) {
         console.error('Something went wrong while logging in. Try again.', error);
         res.status(500).json({ message: 'Something went wrong' });
     }
 });
+
 
 
 router.patch('/update', async (req, res) => {
